@@ -47,7 +47,7 @@ bot.on('callback_query', (callbackQuery) => {
     message_id: msg.message_id,
   }
 
-  bot.editMessageText(`Start downloading ${msg.text!}`, opts)
+  bot.editMessageText(`Start downloading ${msg.text!}\nMagnet: ${action}`, opts)
 })
 
 setInterval(getFeed, 600000)
