@@ -16,8 +16,9 @@ Feed bot for <https://bangumi.moe>
 BOT_TOKEN=token from @BotFather
 OWNER_ID=robot's owner id
 COOKIE=cookie when request downloading files
-SAVE_PATH=where to save
+SAVE_PATH=where to save (default is "/")
 REQUEST_URL=API for requesting downloading files
+START_TIME=13 timestamp for judging if a new update need showing (default is when the program starts)
 ```
 
 Example:
@@ -28,6 +29,7 @@ OWNER_ID=891154
 COOKIE=XXX
 SAVE_PATH=/Path/To/Save
 REQUEST_URL=http://127.0.0.1:2333/api/v3/aria2/url
+START_TIME=1657274799000
 ```
 
 ## Commands

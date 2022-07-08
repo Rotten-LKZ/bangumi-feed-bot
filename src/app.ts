@@ -4,7 +4,7 @@ import { parseDocument, parseFeed } from 'htmlparser2'
 import TelegramBot from 'node-telegram-bot-api'
 
 const bot = new TelegramBot(process.env.BOT_TOKEN!, { polling: true })
-let latestTs = 1657274799000
+let latestTs = process.env.START_TIME ? parseInt(process.env.START_TIME) : new Date().getTime()
 
 bot.onText(/\/start/, (msg) => {
   if (msg.chat.id === parseInt(process.env.OWNER_ID!))
