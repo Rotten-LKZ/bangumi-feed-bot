@@ -40,14 +40,22 @@ bot.onText(/\/latest/, (msg) => {
 
 bot.on('callback_query', (callbackQuery) => {
   const action = callbackQuery.data!
-  sendDownloadRequest([action])
   const msg = callbackQuery.message!
   const opts = {
     chat_id: msg.chat.id,
     message_id: msg.message_id,
   }
-
-  bot.editMessageText(`Start downloading ${msg.text!}\nMagnet: ${action}`, opts)
+  if (action.startsWith('d')) {
+    // Download
+    const magnet = action.substring(1)
+    sendDownloadRequest([magnet])
+    bot.editMessageText(`Start downloading ${msg.text!}\nMagnet: ${action}`, opts)
+  }
+  else if (action.startsWith('s')) {
+    // Show Magnet
+    const magnet = action.substring(1)
+    bot.editMessageText(`Magnet: ${magnet}`, opts)
+  }
 })
 
 setInterval(getFeed, 600000)
@@ -75,13 +83,18 @@ async function getFeed() {
         await bot.sendPhoto(process.env.OWNER_ID!, img.children[0].attribs.src)
       }
       const linkParts = item.link!.split('/')
+      const magnet = await getMagnet(linkParts[linkParts.length - 1])
       await bot.sendMessage(process.env.OWNER_ID!, item.title!, {
         reply_markup: {
           inline_keyboard: [
             [
               {
                 text: 'Download',
-                callback_data: await getMagnet(linkParts[linkParts.length - 1]),
+                callback_data: `d${magnet}`,
+              },
+              {
+                text: 'Show Magnet',
+                callback_data: `s${magnet}`,
               },
             ],
           ],
