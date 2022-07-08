@@ -52,8 +52,6 @@ bot.on('callback_query', (callbackQuery) => {
 
 setInterval(getFeed, 600000)
 
-getFeed()
-
 function sendDownloadRequest(urls: string[]) {
   $fetch(process.env.REQUEST_URL!, {
     headers: {
